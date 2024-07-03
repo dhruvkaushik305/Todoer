@@ -1,5 +1,4 @@
 import React from "react";
-import { todoAtom } from "../../store/todo";
 import { useRecoilState } from "recoil";
 import Todo from "./Todo";
 import {
@@ -15,6 +14,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import { todoAtom } from "../../../store/todo";
 const TodosList: React.FC = () => {
   const [todos, setTodos] = useRecoilState(todoAtom);
   const dragHandler = (event: any) => {
@@ -26,7 +26,7 @@ const TodosList: React.FC = () => {
   };
   const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
   return (
-    <div className="flex w-[80%] flex-col items-start gap-2">
+    <div className="flex w-full flex-col items-start gap-2 md:w-[90%] xl:w-[80%]">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

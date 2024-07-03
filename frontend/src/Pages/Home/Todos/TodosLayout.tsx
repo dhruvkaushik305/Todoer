@@ -4,7 +4,7 @@ import TodosList from "./TodosList";
 
 const TodosLayout: React.FC = () => {
   return (
-    <div className="flex h-full w-[80%] flex-col items-center gap-5 rounded-xl bg-gray-100 p-5">
+    <div className="flex h-full w-[95%] flex-col items-center gap-4 rounded-[2rem] bg-gray-100 p-3 md:w-[90%] md:gap-7 md:p-5 xl:w-[80%]">
       <AddTodo />
       <TodosList />
     </div>

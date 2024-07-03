@@ -1,6 +1,6 @@
 import React from "react";
-import { todoAtom } from "../../store/todo";
 import { useSetRecoilState } from "recoil";
+import { todoAtom } from "../../../store/todo";
 const AddTodo: React.FC = () => {
   const setTodos = useSetRecoilState(todoAtom);
   const titleRef = React.useRef<HTMLInputElement>(null);
@@ -18,7 +18,7 @@ const AddTodo: React.FC = () => {
     titleRef.current!.value = "";
   };
   return (
-    <div className="flex w-[80%] items-center justify-center rounded-lg bg-white p-2 px-4">
+    <div className="flex w-full items-center justify-center rounded-[2rem] bg-white p-2 px-4 md:w-[90%] xl:w-[80%]">
       <input
         type="text"
         placeholder="Add todo"
@@ -27,7 +27,7 @@ const AddTodo: React.FC = () => {
         onKeyDown={(e) => e.key === "Enter" && handleAddTodo()}
       />
       <button
-        className="rounded-lg bg-gray-600 px-4 py-1 text-white"
+        className="rounded-[1rem] bg-gray-600 px-4 py-1 text-white"
         onClick={handleAddTodo}
       >
         Add

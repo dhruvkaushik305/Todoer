@@ -5,8 +5,8 @@ import { FiEdit3 } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { RxDragHandleDots2 } from "react-icons/rx";
 import { useSetRecoilState } from "recoil";
-import { todoAtom } from "../../store/todo";
 import { FaCheck } from "react-icons/fa";
+import { todoAtom } from "../../../store/todo";
 
 interface TodoProps {
   id: number;
@@ -57,20 +57,20 @@ const Todo: React.FC<TodoProps> = ({ id, title, completed }) => {
   };
   return (
     <div
-      className="flex w-full items-center justify-start gap-5 rounded-lg bg-white p-3"
+      className="flex w-full items-center justify-between rounded-lg bg-white p-3"
       {...attributes}
       ref={setNodeRef}
       style={style}
     >
-      <RxDragHandleDots2
-        className="cursor-grab active:cursor-grabbing"
-        {...listeners}
-      />
-      <div className="flex items-center gap-3">
+      <div className="flex grow items-center gap-3">
+        <RxDragHandleDots2
+          className="cursor-grab active:cursor-grabbing"
+          {...listeners}
+        />
         <input
           type="checkbox"
           checked={completed}
-          className=""
+          className="size-4"
           onChange={completionHandler}
         />
         <input
@@ -79,8 +79,10 @@ const Todo: React.FC<TodoProps> = ({ id, title, completed }) => {
           disabled
           onKeyDown={keyboardHandler}
           ref={titleRef}
-          className={`text-lg focus:outline-none ${completed ? "line-through" : null}`}
+          className={`w-full bg-white p-1 text-lg focus:outline-none ${completed ? "text-gray-400 line-through" : "text-gray-700"}`}
         />
+      </div>
+      <div className="flex items-center gap-2">
         {edit ? (
           <FaCheck onClick={editHandler} />
         ) : (
