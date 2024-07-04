@@ -2,6 +2,8 @@ import React from "react";
 import { BiReset } from "react-icons/bi";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { RxResume } from "react-icons/rx";
+import { useRecoilState } from "recoil";
+import { isRunningAtom, timeAtom } from "../../../store/stopwatch";
 interface PauseButtonProps {
   onClick: () => void;
 }
@@ -13,18 +15,8 @@ const PauseButton: React.FC<PauseButtonProps> = React.memo(({ onClick }) => {
   );
 });
 const Stopwatch: React.FC = () => {
-  let timeInterval: number | undefined = undefined;
-  const [time, setTime] = React.useState(0);
-  const [isRunning, setIsRunning] = React.useState(false);
-  React.useEffect(() => {
-    if (isRunning) {
-      timeInterval = setInterval(
-        () => setTime((prevTime) => prevTime + 1),
-        1000,
-      );
-    }
-    return () => clearInterval(timeInterval);
-  }, [isRunning]);
+  const [time, setTime] = useRecoilState(timeAtom);
+  const [isRunning, setIsRunning] = useRecoilState(isRunningAtom);
   const handlePause = React.useCallback(() => {
     setIsRunning(false);
   }, []);
