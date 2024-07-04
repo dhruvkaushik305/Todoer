@@ -3,7 +3,7 @@ import DashboardLayout from "./Dashboard/DashboardLayout";
 import TodosLayout from "./Todos/TodosLayout";
 const HomeLayout: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-10 md:gap-14">
+    <div className="flex flex-col items-center justify-center gap-10">
       <DashboardLayout />
       <TodosLayout />
     </div>
