@@ -2,7 +2,16 @@ import React from "react";
 import { BiReset } from "react-icons/bi";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { RxResume } from "react-icons/rx";
-
+interface PauseButtonProps {
+  onClick: () => void;
+}
+const PauseButton: React.FC<PauseButtonProps> = React.memo(({ onClick }) => {
+  return (
+    <button onClick={onClick}>
+      <FaPause className="size-4" />
+    </button>
+  );
+});
 const Stopwatch: React.FC = () => {
   let timeInterval: number | undefined = undefined;
   const [time, setTime] = React.useState(0);
@@ -16,6 +25,9 @@ const Stopwatch: React.FC = () => {
     }
     return () => clearInterval(timeInterval);
   }, [isRunning]);
+  const handlePause = React.useCallback(() => {
+    setIsRunning(false);
+  }, []);
   return (
     <div className="flex items-center justify-center gap-3 p-1">
       {!isRunning && time > 0 && (
@@ -27,9 +39,7 @@ const Stopwatch: React.FC = () => {
         {Math.floor(time / 3600)}:{Math.floor((time % 3600) / 60)}:{time % 60}
       </p>
       {isRunning ? (
-        <button onClick={() => setIsRunning(false)}>
-          <FaPause className="size-4" />
-        </button>
+        <PauseButton onClick={handlePause} />
       ) : time > 0 ? (
         <div className="flex gap-2">
           <button onClick={() => setIsRunning(true)}>
