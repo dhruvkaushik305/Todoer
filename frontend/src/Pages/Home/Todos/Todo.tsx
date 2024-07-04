@@ -57,6 +57,7 @@ const Todo: React.FC<TodoProps> = ({ id, title, completed }) => {
   };
   return (
     <div
+      key={id}
       className="flex w-full items-center justify-between rounded-lg bg-white p-3"
       {...attributes}
       ref={setNodeRef}
@@ -66,6 +67,7 @@ const Todo: React.FC<TodoProps> = ({ id, title, completed }) => {
         <RxDragHandleDots2
           className="cursor-grab active:cursor-grabbing"
           {...listeners}
+          style={{ touchAction: "none" }}
         />
         <input
           type="checkbox"
