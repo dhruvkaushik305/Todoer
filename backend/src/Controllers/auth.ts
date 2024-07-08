@@ -1,0 +1,42 @@
+import { Request, Response } from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import User from "../Models/user";
+export const signup = async (req: Request, res: Response) => {
+  const { name, email, password, username } = req.body;
+  if (!name || !email || !password || !username)
+    return res.status(400).json({ message: "Incomplete request" });
+  const userExists = await User.findOne({ username });
+  if (userExists)
+    return res.status(400).json({ message: "Username already exists" });
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const userCreated = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    username,
+  });
+  if (userCreated) return res.status(201).json({ message: "User created" });
+  else return res.status(400).json({ message: "Error creating user" });
+};
+export const login = async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  if (!username || !password)
+    return res.status(400).json({ message: "Incomplete request" });
+  const existingUser = await User.findOne({ username });
+  if (!existingUser)
+    return res.status(400).json({ message: "User does not exist" });
+  const isPasswordCorrect = await bcrypt.compare(
+    password,
+    existingUser.password
+  );
+  if (!isPasswordCorrect)
+    return res.status(400).json({ message: "Incorrect username/password" });
+  const token = jwt.sign(
+    { id: existingUser._id },
+    process.env.JWT_SECRET as string
+  );
+  return res
+    .status(200)
+    .json({ message: "Login successful", token: "Bearer " + token });
+};
