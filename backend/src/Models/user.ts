@@ -21,13 +21,15 @@ const userSchema = new mongoose.Schema({
   todos: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Todo",
+      ref: "todo",
+      default: [],
     },
   ],
   activityData: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ActivityData",
+      ref: "activityData",
+      default: [],
     },
   ],
   date: {
@@ -35,5 +37,5 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("user", userSchema);
 export default User;

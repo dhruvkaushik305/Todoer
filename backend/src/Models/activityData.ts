@@ -17,5 +17,5 @@ const activityDataSchema = new mongoose.Schema({
     enum: ["todo", "time"],
   },
 });
-const ActivityData = mongoose.model("ActivityData", activityDataSchema);
+const ActivityData = mongoose.model("activityData", activityDataSchema);
 export default ActivityData;
