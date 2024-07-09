@@ -13,6 +13,7 @@ import {
   updateTodoTitle,
 } from "../../../actions/todoActions";
 import { TodoType } from "../../../Lib/todoType";
+import debouncer from "../../../Lib/debouncer";
 
 const Todo: React.FC<TodoType> = ({ _id, id, title, completed }) => {
   const titleRef = React.useRef<HTMLInputElement>(null);
@@ -46,7 +47,7 @@ const Todo: React.FC<TodoType> = ({ _id, id, title, completed }) => {
         todo.id === id ? { ...todo, completed: !completed } : todo,
       ),
     );
-    updateTodoComplettion(!completed, _id);
+    debouncer(async () => await updateTodoComplettion(!completed, _id), 500);
   };
   const keyboardHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key == "Enter") {
