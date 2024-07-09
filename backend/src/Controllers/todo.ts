@@ -6,7 +6,10 @@ interface RequestWithUser extends Request {
 }
 
 export const getAllTodos = async (req: RequestWithUser, res: Response) => {
-  const userWithTodos = await User.findById(req.userId).populate("todos");
+  const userWithTodos = await User.findById(req.userId).populate({
+    path: "todos",
+    options: { sort: { order: "asc" } },
+  });
   return res.status(200).json({ success: true, todos: userWithTodos!.todos });
 };
 
@@ -24,13 +27,13 @@ export const addTodo = async (req: RequestWithUser, res: Response) => {
 export const updateTodoOrder = async (req: RequestWithUser, res: Response) => {
   const { todoId } = req.params;
   const { order } = req.body;
-  if (!todoId || !order)
-    return res.status(400).json({ message: "Incomplete request" });
-  const updatedTodo = await Todo.findOneAndUpdate(
-    { _id: todoId },
-    { order },
-    { new: true }
-  );
+  if (!todoId || order === undefined)
+    return res
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
+  const updatedTodo = await Todo.findOne({ id: todoId });
+  updatedTodo!.order = order;
+  await updatedTodo!.save();
   return res.status(200).json({ success: true, updatedTodo });
 };
 
@@ -38,7 +41,9 @@ export const updateTodoTitle = async (req: RequestWithUser, res: Response) => {
   const { title } = req.body;
   const { todoId } = req.params;
   if (!todoId || !title)
-    return res.status(400).json({ message: "Incomplete request" });
+    return res
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
   const updatedTodo = await Todo.findOneAndUpdate(
     { _id: todoId },
     { title },
@@ -53,8 +58,10 @@ export const updateTodoCompletion = async (
 ) => {
   const { todoId } = req.params;
   const { completed } = req.body;
-  if (!todoId || !completed)
-    return res.status(400).json({ message: "Incomplete request" });
+  if (!todoId || completed === undefined)
+    return res
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
   const updatedTodo = await Todo.findOneAndUpdate(
     { _id: todoId },
     { completed },

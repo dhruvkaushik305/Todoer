@@ -32,6 +32,57 @@ export const addTodo = async (title: string, order: number) => {
     return undefined;
   }
 };
+export const updateTodoTitle = async (title: string, todoId: string) => {
+  try {
+    const response = await fetch(`/api/todos/updateTitle/${todoId}`, {
+      method: "PUT",
+      headers: {
+        authorization: token!,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title }),
+    });
+    const data = await response.json();
+    if (data.success) return data.updatedTodo;
+  } catch (err) {
+    console.log("Error updating todo title", err);
+    return undefined;
+  }
+};
+export const updateTodoComplettion = async (
+  completed: boolean,
+  todoId: string,
+) => {
+  try {
+    await fetch(`/api/todos/updateCompletion/${todoId}`, {
+      method: "PUT",
+      headers: {
+        authorization: token!,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed }),
+    });
+  } catch (err) {
+    console.log("Error updating todo completion", err);
+    return undefined;
+  }
+};
+export const updateTodoOrder = async (order: number, todoId: string) => {
+  //todoId is the id of the uuid of the todo
+  try {
+    await fetch(`/api/todos/updateOrder/${todoId}`, {
+      method: "PUT",
+      headers: {
+        authorization: token!,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ order }),
+    });
+  } catch (err) {
+    console.log("Error updating todo order", err);
+    return undefined;
+  }
+};
 export const deleteTodo = async (todoId: string) => {
   try {
     await fetch(`/api/todos/${todoId}`, {

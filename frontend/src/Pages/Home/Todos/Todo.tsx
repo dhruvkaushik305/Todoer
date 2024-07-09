@@ -7,7 +7,11 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 import { useSetRecoilState } from "recoil";
 import { FaCheck } from "react-icons/fa";
 import { todoAtom } from "../../../store/todo";
-import { deleteTodo } from "../../../actions/todoActions";
+import {
+  deleteTodo,
+  updateTodoComplettion,
+  updateTodoTitle,
+} from "../../../actions/todoActions";
 import { TodoType } from "../../../Lib/todoType";
 
 const Todo: React.FC<TodoType> = ({ _id, id, title, completed }) => {
@@ -22,12 +26,15 @@ const Todo: React.FC<TodoType> = ({ _id, id, title, completed }) => {
     titleRef.current!.focus();
     setEdit(true);
   };
-  const editHandler = () => {
+  const editHandler = async () => {
     titleRef.current!.disabled = true;
     setEdit(false);
     setTodos((prev) =>
-      prev.map((todo) => (todo.id === id ? { ...todo, title } : todo)),
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, title: titleRef.current!.value } : todo,
+      ),
     );
+    await updateTodoTitle(titleRef.current!.value, _id);
   };
   const deleteHandler = async () => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
@@ -39,6 +46,7 @@ const Todo: React.FC<TodoType> = ({ _id, id, title, completed }) => {
         todo.id === id ? { ...todo, completed: !completed } : todo,
       ),
     );
+    updateTodoComplettion(!completed, _id);
   };
   const keyboardHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key == "Enter") {
