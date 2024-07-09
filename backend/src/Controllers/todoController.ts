@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import User from "../Models/user";
-import Todo from "../Models/todo";
+import User from "../Models/userModel";
+import Todo from "../Models/todoModel";
 interface RequestWithUser extends Request {
   userId?: string;
 }

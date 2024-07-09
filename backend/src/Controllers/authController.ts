@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../Models/user";
+import User from "../Models/userModel";
 export const signup = async (
   req: Request,
   res: Response,

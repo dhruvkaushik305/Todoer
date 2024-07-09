@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, signup } from "../Controllers/auth";
+import { login, signup } from "../Controllers/authController";
 import { authMiddleware } from "../Middlewares/authMiddleware";
 import {
   addTodo,
@@ -8,7 +8,7 @@ import {
   updateTodoCompletion,
   updateTodoOrder,
   updateTodoTitle,
-} from "../Controllers/todo";
+} from "../Controllers/todoController";
 import errorMiddleware from "../Middlewares/errorMiddleware";
 const router = Router();
 
