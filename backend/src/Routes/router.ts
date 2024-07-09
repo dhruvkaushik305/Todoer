@@ -14,11 +14,11 @@ const router = Router();
 router.post("/auth/signup", signup);
 router.post("/auth/login", login);
 
-router.use("/todo", authMiddleware);
-router.get("/todo/all", getAllTodos);
-router.put("/todo/add", addTodo);
-router.put("/todo/updateTitle/:todoId", updateTodoTitle);
-router.put("/todo/updateCompletion/:todoId", updateTodoCompletion);
-router.put("/todo/updateOrder/:todoId", updateTodoOrder);
-router.delete("/todo/:todoId", deleteTodo);
+router.use("/todos", authMiddleware);
+router.get("/todos/all", getAllTodos);
+router.post("/todos/add", addTodo);
+router.put("/todos/updateTitle/:todoId", updateTodoTitle);
+router.put("/todos/updateCompletion/:todoId", updateTodoCompletion);
+router.put("/todos/updateOrder/:todoId", updateTodoOrder);
+router.delete("/todos/:todoId", deleteTodo);
 export default router;

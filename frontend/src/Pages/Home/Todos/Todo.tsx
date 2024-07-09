@@ -7,14 +7,10 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 import { useSetRecoilState } from "recoil";
 import { FaCheck } from "react-icons/fa";
 import { todoAtom } from "../../../store/todo";
+import { deleteTodo } from "../../../actions/todoActions";
+import { TodoType } from "../../../Lib/todoType";
 
-interface TodoProps {
-  id: number;
-  title: string;
-  completed: boolean;
-}
-
-const Todo: React.FC<TodoProps> = ({ id, title, completed }) => {
+const Todo: React.FC<TodoType> = ({ _id, id, title, completed }) => {
   const titleRef = React.useRef<HTMLInputElement>(null);
   const setTodos = useSetRecoilState(todoAtom);
   const [edit, setEdit] = React.useState(false);
@@ -33,8 +29,9 @@ const Todo: React.FC<TodoProps> = ({ id, title, completed }) => {
       prev.map((todo) => (todo.id === id ? { ...todo, title } : todo)),
     );
   };
-  const deleteHandler = () => {
+  const deleteHandler = async () => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    await deleteTodo(_id);
   };
   const completionHandler = () => {
     setTodos((prev) =>

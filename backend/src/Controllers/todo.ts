@@ -13,7 +13,9 @@ export const getAllTodos = async (req: RequestWithUser, res: Response) => {
 export const addTodo = async (req: RequestWithUser, res: Response) => {
   const { title, order } = req.body;
   if (!title || !order)
-    return res.status(400).json({ message: "Incomplete request" });
+    return res
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
   const newTodo = await Todo.create({ title, order });
   await User.updateOne({ _id: req.userId }, { $push: { todos: newTodo._id } });
   return res.status(201).json({ success: true, newTodo });
@@ -63,7 +65,10 @@ export const updateTodoCompletion = async (
 
 export const deleteTodo = async (req: RequestWithUser, res: Response) => {
   const { todoId } = req.params;
-  if (!todoId) return res.status(400).json({ message: "Incomplete request" });
+  if (!todoId)
+    return res
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
   await Todo.deleteOne({ _id: todoId });
   await User.findOneAndUpdate(
     { _id: req.userId },

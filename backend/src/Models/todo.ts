@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
+import { v4 as uuid } from "uuid";
 const todoSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    default: () => uuid(),
+  },
   title: {
     type: String,
     required: true,

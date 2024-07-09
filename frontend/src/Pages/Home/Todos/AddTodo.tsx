@@ -1,21 +1,40 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 import { todoAtom } from "../../../store/todo";
+import { addTodo } from "../../../actions/todoActions";
+import { TodoType } from "../../../Lib/todoType";
+
 const AddTodo: React.FC = () => {
   const setTodos = useSetRecoilState(todoAtom);
   const titleRef = React.useRef<HTMLInputElement>(null);
-  const handleAddTodo = () => {
+  const handleAddTodo = async () => {
+    let order = 0;
     if (titleRef.current!.value.trim() !== "") {
-      setTodos((prev) => [
-        ...prev,
-        {
-          id: prev.length + 1,
-          title: titleRef.current!.value,
-          completed: false,
-        },
-      ]);
+      const newTodoTitle = titleRef.current!.value;
+      titleRef.current!.value = "";
+      setTodos((prev) => {
+        order = prev.length + 1;
+        return [
+          ...prev,
+          {
+            _id: "-1",
+            id: "-1",
+            order,
+            title: newTodoTitle,
+            completed: false,
+          },
+        ];
+      });
+      const newTodo = await addTodo(newTodoTitle, order);
+      if (newTodo) {
+        setTodos(
+          (prev) =>
+            prev.map((todo) =>
+              todo._id === "-1" ? newTodo : todo,
+            ) as TodoType[],
+        );
+      }
     }
-    titleRef.current!.value = "";
   };
   return (
     <div className="flex w-full items-center justify-center rounded-[1.25rem] bg-white p-2 px-4 md:w-[90%] xl:w-[80%]">
