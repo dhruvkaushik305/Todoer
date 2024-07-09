@@ -9,6 +9,7 @@ import {
   updateTodoOrder,
   updateTodoTitle,
 } from "../Controllers/todo";
+import errorMiddleware from "../Middlewares/errorMiddleware";
 const router = Router();
 
 router.post("/auth/signup", signup);
@@ -21,4 +22,6 @@ router.put("/todos/updateTitle/:todoId", updateTodoTitle);
 router.put("/todos/updateCompletion/:todoId", updateTodoCompletion);
 router.put("/todos/updateOrder/:todoId", updateTodoOrder);
 router.delete("/todos/:todoId", deleteTodo);
+
+router.use(errorMiddleware);
 export default router;
