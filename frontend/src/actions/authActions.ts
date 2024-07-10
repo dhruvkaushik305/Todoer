@@ -1,4 +1,9 @@
-import { LoginType, SignupType } from "../Lib/authType";
+import {
+  loginResponse,
+  LoginType,
+  signupResponse,
+  SignupType,
+} from "../Lib/authType";
 
 export const signup = async (input: SignupType) => {
   try {
@@ -9,10 +14,11 @@ export const signup = async (input: SignupType) => {
       },
       body: JSON.stringify(input),
     });
-    const data = await response.json();
+    const data: signupResponse = await response.json();
     return data;
   } catch (err) {
     console.log(err);
+    return { success: false, message: "Something went wrong" };
   }
 };
 export const login = async (input: LoginType) => {
@@ -24,9 +30,10 @@ export const login = async (input: LoginType) => {
       },
       body: JSON.stringify(input),
     });
-    const data = await response.json();
+    const data: loginResponse = await response.json();
     return data;
   } catch (err) {
     console.log(err);
+    return { success: false, message: "Something went wrong" };
   }
 };

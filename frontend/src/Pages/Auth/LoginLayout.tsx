@@ -9,35 +9,43 @@ const LoginLayout: React.FC = () => {
   const onSubmit = async (data: LoginType) => {
     const response = await login(data);
     if (response.success) {
-      localStorage.setItem("authorization", response.token);
+      localStorage.setItem("authorization", response.token!);
       navigate("/");
     } else {
       console.log(response.message);
     }
   };
   return (
-    <div>
-      <header>Login</header>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="username">Username</label>
+    <div className="mx-auto flex flex-col gap-5 rounded-xl bg-gray-200 p-5">
+      <header className="text-center text-2xl">Login</header>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+        <div className="flex flex-col gap-1">
+          <label htmlFor="username" className="text-lg">
+            Username
+          </label>
           <input
             type="text"
             placeholder="Username"
             id="username"
             {...register("username")}
+            className="rounded-lg p-2 focus:outline-none"
           />
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="password" className="text-lg">
+            Password
+          </label>
           <input
             type="password"
             placeholder="Password"
             id="password"
             {...register("password")}
+            className="rounded-lg p-2 focus:outline-none"
           />
         </div>
-        <button>Login</button>
+        <button className="rounded-lg bg-black px-3 py-2 text-white">
+          Login
+        </button>
       </form>
     </div>
   );

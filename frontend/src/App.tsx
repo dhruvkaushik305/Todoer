@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="flex h-screen w-screen flex-col overflow-hidden">
       <NavbarLayout />
-      <div className="flex h-full w-full grow flex-col overflow-y-auto pb-[1rem] pt-[6rem]">
+      <div className="flex h-full w-full grow flex-col items-center justify-center overflow-y-auto pb-[1rem] pt-[6rem]">
         <AppRoutes />
       </div>
     </div>
