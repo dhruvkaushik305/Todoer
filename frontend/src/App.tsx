@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { isRunningAtom, timeAtom } from "./store/stopwatch";
 import AppRoutes from "./Pages/AppRoutes";
 function App() {
-  let timeInterval: number | undefined = undefined;
+  let timeInterval: NodeJS.Timeout | undefined = undefined;
   const [time, setTime] = useRecoilState(timeAtom);
   const isRunning = useRecoilValue(isRunningAtom);
   React.useEffect(() => {
