@@ -62,7 +62,7 @@ const SignupLayout: React.FC = () => {
         <button className="rounded-lg bg-black px-3 py-2 text-white">
           Signup
         </button>
-        {error && <p>{error}</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
       </form>
     </div>
   );

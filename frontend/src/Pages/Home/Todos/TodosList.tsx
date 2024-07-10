@@ -33,18 +33,24 @@ const TodosList: React.FC = () => {
   };
   const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
   return (
-    <div className="flex w-full flex-col items-start gap-2 md:w-[90%] xl:w-[80%]">
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={dragHandler}
-      >
-        <SortableContext items={todos} strategy={verticalListSortingStrategy}>
-          {todos.map((todo) => (
-            <Todo key={todo.id} {...todo} />
-          ))}
-        </SortableContext>
-      </DndContext>
+    <div className="flex h-full w-full flex-col items-start gap-2 md:w-[90%] xl:w-[80%]">
+      {todos.length === 0 ? (
+        <div className="flex h-full w-full items-center justify-center">
+          Let's get some work done. Go ahead and add some todos.
+        </div>
+      ) : (
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={dragHandler}
+        >
+          <SortableContext items={todos} strategy={verticalListSortingStrategy}>
+            {todos.map((todo) => (
+              <Todo key={todo.id} {...todo} />
+            ))}
+          </SortableContext>
+        </DndContext>
+      )}
     </div>
   );
 };

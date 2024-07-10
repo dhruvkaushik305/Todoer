@@ -4,14 +4,16 @@ import { LoginType } from "../../Lib/authType";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../actions/authActions";
 const LoginLayout: React.FC = () => {
+  const [error, setError] = React.useState<string | null>(null);
   const navigate = useNavigate();
   const { handleSubmit, register } = useForm<LoginType>();
   const onSubmit = async (data: LoginType) => {
     const response = await login(data);
     if (response.success) {
       localStorage.setItem("authorization", response.token!);
-      navigate("/");
+      navigate("/home");
     } else {
+      setError(response.message);
       console.log(response.message);
     }
   };
@@ -46,6 +48,7 @@ const LoginLayout: React.FC = () => {
         <button className="rounded-lg bg-black px-3 py-2 text-white">
           Login
         </button>
+        {error && <p className="text-center text-red-500">{error}</p>}
       </form>
     </div>
   );
