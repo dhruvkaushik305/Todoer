@@ -7,7 +7,7 @@ const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(
   cors({
-    origin: `${process.env.FRONTEND_URL}`,
+    origin: "*",
   })
 );
 app.listen(port, () => console.log(`The server is listening on port ${port}`));
