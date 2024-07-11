@@ -64,7 +64,7 @@ const Todo: React.FC<TodoType> = ({ _id, id, title, completed }) => {
   return (
     <div
       key={id}
-      className="flex w-full items-center justify-between rounded-xl bg-white p-3"
+      className="flex w-full items-center justify-between rounded-xl bg-white/90 p-3"
       {...attributes}
       ref={setNodeRef}
       style={style}
@@ -87,10 +87,10 @@ const Todo: React.FC<TodoType> = ({ _id, id, title, completed }) => {
           disabled
           onKeyDown={keyboardHandler}
           ref={titleRef}
-          className={`w-full bg-white p-1 text-lg focus:outline-none ${completed ? "text-gray-400 line-through" : "text-gray-700"}`}
+          className={`w-full bg-transparent p-1 text-lg focus:outline-none ${completed ? "text-gray-400 line-through" : "text-gray-700"}`}
         />
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         {edit ? (
           <FaCheck onClick={editHandler} />
         ) : (

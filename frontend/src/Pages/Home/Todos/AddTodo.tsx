@@ -37,16 +37,16 @@ const AddTodo: React.FC = () => {
     }
   };
   return (
-    <div className="flex w-full items-center justify-center rounded-[1.25rem] bg-white p-2 px-4 md:w-[90%] xl:w-[80%]">
+    <div className="flex w-full items-center justify-center rounded-[1rem] bg-white/90 p-2 px-4 md:w-[90%] xl:w-[80%]">
       <input
         type="text"
         placeholder="Add todo"
-        className="w-full text-gray-700 focus:outline-none"
+        className="w-full bg-transparent text-gray-700 focus:outline-none"
         ref={titleRef}
         onKeyDown={(e) => e.key === "Enter" && handleAddTodo()}
       />
       <button
-        className="rounded-[0.75rem] bg-gray-600 px-4 py-1 text-white"
+        className="rounded-[1rem] bg-gray-600 px-4 py-1 text-white"
         onClick={handleAddTodo}
       >
         Add

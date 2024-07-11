@@ -7,15 +7,15 @@ const NavbarLayout: React.FC = () => {
   const userInfo = useRecoilValue(userAtom);
   const navigate = useNavigate();
   return (
-    <div className="fixed flex h-[4rem] w-full items-center justify-between bg-gray-200/95 px-2 md:justify-around">
+    <div className="flex min-h-[4rem] w-full items-center justify-between bg-gray-200/95 px-2 md:justify-around">
       <header
-        className="text-2xl font-bold md:text-3xl"
+        className="font-semiBold text-xl text-gray-800 sm:text-2xl md:text-3xl"
         onClick={() => navigate("/")}
       >
         Todoer
       </header>
       {isLoggedIn ? (
-        <div className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-gray-300 p-3 font-medium">
+        <div className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-gray-400 p-3 font-bold text-gray-800">
           {userInfo && userInfo.name[0].toUpperCase()}
         </div>
       ) : (

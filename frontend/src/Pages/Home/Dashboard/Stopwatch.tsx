@@ -27,7 +27,7 @@ const Stopwatch: React.FC = () => {
           <BiReset className="size-6" />
         </button>
       )}
-      <p className="text-3xl font-bold">
+      <p className="font-semi-bold text-2xl md:text-3xl">
         {Math.floor(time / 3600)}:{Math.floor((time % 3600) / 60)}:{time % 60}
       </p>
       {isRunning ? (

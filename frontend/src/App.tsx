@@ -23,9 +23,9 @@ function App() {
     )}:${time % 60}`;
   }, [time]);
   return (
-    <div className="flex h-screen w-screen flex-col overflow-hidden">
+    <div className="flex h-screen w-screen flex-col gap-5 overflow-y-auto">
       <NavbarLayout />
-      <div className="flex h-full w-full grow flex-col items-center justify-center overflow-y-auto pb-[1rem] pt-[6rem]">
+      <div className="flex w-full grow flex-col items-center justify-center pb-[1rem]">
         <AppRoutes />
       </div>
     </div>
