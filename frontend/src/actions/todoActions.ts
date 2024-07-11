@@ -1,11 +1,14 @@
-const token = localStorage.getItem("authorization");
 export const fetchAllTodos = async () => {
   try {
-    const response = await fetch("/api/todos/all", {
-      headers: {
-        authorization: token!,
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/todos/all`,
+      {
+        method: "GET",
+        headers: {
+          authorization: localStorage.getItem("authorization")!,
+        },
       },
-    });
+    );
     const data = await response.json();
     return data;
   } catch (err) {
@@ -15,14 +18,17 @@ export const fetchAllTodos = async () => {
 };
 export const addTodo = async (title: string, order: number) => {
   try {
-    const response = await fetch("/api/todos/add", {
-      method: "POST",
-      headers: {
-        authorization: token!,
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/todos/add`,
+      {
+        method: "POST",
+        headers: {
+          authorization: localStorage.getItem("authorization")!,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, order }),
       },
-      body: JSON.stringify({ title, order }),
-    });
+    );
     const data = await response.json();
     if (data.success) {
       return data.newTodo;
@@ -34,14 +40,17 @@ export const addTodo = async (title: string, order: number) => {
 };
 export const updateTodoTitle = async (title: string, todoId: string) => {
   try {
-    const response = await fetch(`/api/todos/updateTitle/${todoId}`, {
-      method: "PUT",
-      headers: {
-        authorization: token!,
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/todos/updateTitle/${todoId}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: localStorage.getItem("authorization")!,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title }),
       },
-      body: JSON.stringify({ title }),
-    });
+    );
     const data = await response.json();
     if (data.success) return data.updatedTodo;
   } catch (err) {
@@ -54,14 +63,17 @@ export const updateTodoComplettion = async (
   todoId: string,
 ) => {
   try {
-    await fetch(`/api/todos/updateCompletion/${todoId}`, {
-      method: "PUT",
-      headers: {
-        authorization: token!,
-        "Content-Type": "application/json",
+    await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/todos/updateCompletion/${todoId}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: localStorage.getItem("authorization")!,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ completed }),
       },
-      body: JSON.stringify({ completed }),
-    });
+    );
   } catch (err) {
     console.log("Error updating todo completion", err);
     return undefined;
@@ -70,14 +82,17 @@ export const updateTodoComplettion = async (
 export const updateTodoOrder = async (order: number, todoId: string) => {
   //todoId is the id of the uuid of the todo
   try {
-    await fetch(`/api/todos/updateOrder/${todoId}`, {
-      method: "PUT",
-      headers: {
-        authorization: token!,
-        "Content-Type": "application/json",
+    await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/todos/updateOrder/${todoId}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: localStorage.getItem("authorization")!,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ order }),
       },
-      body: JSON.stringify({ order }),
-    });
+    );
   } catch (err) {
     console.log("Error updating todo order", err);
     return undefined;
@@ -85,10 +100,10 @@ export const updateTodoOrder = async (order: number, todoId: string) => {
 };
 export const deleteTodo = async (todoId: string) => {
   try {
-    await fetch(`/api/todos/${todoId}`, {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/todos/${todoId}`, {
       method: "DELETE",
       headers: {
-        authorization: token!,
+        authorization: localStorage.getItem("authorization")!,
       },
     });
   } catch (err) {

@@ -10,7 +10,6 @@ const LoginLayout: React.FC = () => {
   const onSubmit = async (data: LoginType) => {
     const response = await login(data);
     if (response.success) {
-      localStorage.setItem("authorization", response.token!);
       navigate("/home");
     } else {
       setError(response.message);

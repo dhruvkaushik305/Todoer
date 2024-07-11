@@ -1,10 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { isLoggedInAtom } from "../../store/auth";
 import { userAtom } from "../../store/user";
 const NavbarLayout: React.FC = () => {
-  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  const isLoggedIn = localStorage.getItem("authorization") !== null;
   const userInfo = useRecoilValue(userAtom);
   const navigate = useNavigate();
   return (

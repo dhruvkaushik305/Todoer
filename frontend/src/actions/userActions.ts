@@ -1,15 +1,16 @@
 import { UserInfoResponse } from "../Lib/userType";
 
-const token = localStorage.getItem("authorization");
 export const getUserInfo = async () => {
   try {
-    const response = await fetch("/api/user/info", {
-      method: "GET",
-      headers: {
-        authorization: token!,
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/info`,
+      {
+        method: "GET",
+        headers: {
+          authorization: localStorage.getItem("authorization")!,
+        },
       },
-    });
+    );
     const data: UserInfoResponse = await response.json();
     return data;
   } catch (err) {
