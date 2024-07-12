@@ -1,10 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { userAtom } from "../../store/user";
 const NavbarLayout: React.FC = () => {
   const isLoggedIn = localStorage.getItem("authorization") !== null;
-  const userInfo = useRecoilValue(userAtom);
   const navigate = useNavigate();
   return (
     <div className="flex min-h-[4rem] w-full items-center justify-between bg-gray-200/95 px-2 md:justify-around">
@@ -15,9 +12,15 @@ const NavbarLayout: React.FC = () => {
         Todoer
       </header>
       {isLoggedIn ? (
-        <div className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-gray-400 p-3 font-bold text-gray-800">
-          {userInfo && userInfo.name[0].toUpperCase()}
-        </div>
+        <button
+          onClick={() => {
+            localStorage.removeItem("authorization");
+            navigate("/");
+          }}
+          className="rounded-md bg-gray-300 px-3 py-2 font-medium"
+        >
+          Logout
+        </button>
       ) : (
         <div className="flex items-center justify-center gap-2">
           <button

@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "*",
-  })
+  }),
 );
 app.listen(port, () => console.log(`The server is listening on port ${port}`));
 dbConnect();
