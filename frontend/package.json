@@ -1,5 +1,14 @@
 {
-  "name": "frontend",
+  "name": "todoer-frontend",
+  "description": "This is the frontend of todoer, a minimalist todo app",
+  "keywords": [
+    "todo",
+    "frontend",
+    "react",
+    "tailwind",
+    "dnd-kit",
+    "recoil"
+  ],
   "private": true,
   "version": "0.0.0",
   "type": "module",
