@@ -1,7 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-const NavbarLayout: React.FC = () => {
+import { useSetRecoilState } from "recoil";
+import { isRunningAtom, timeAtom } from "../../store/stopwatch";
+const NavbarLayout: React.FC = React.memo(() => {
   const isLoggedIn = localStorage.getItem("authorization") !== null;
+  const setIsRunning = useSetRecoilState(isRunningAtom);
+  const setTime = useSetRecoilState(timeAtom);
   const navigate = useNavigate();
   return (
     <div className="flex min-h-[4rem] w-full items-center justify-between bg-gray-200/95 px-2 md:justify-around">
@@ -15,6 +19,8 @@ const NavbarLayout: React.FC = () => {
         <button
           onClick={() => {
             localStorage.removeItem("authorization");
+            setIsRunning(false);
+            setTime(0);
             navigate("/");
           }}
           className="rounded-md bg-gray-300 px-3 py-2 font-medium"
@@ -39,5 +45,5 @@ const NavbarLayout: React.FC = () => {
       )}
     </div>
   );
-};
+});
 export default NavbarLayout;

@@ -5,7 +5,7 @@ import { signup } from "../../actions/authActions";
 import { useNavigate } from "react-router-dom";
 const SignupLayout: React.FC = () => {
   const navigate = useNavigate();
-  const [error, setError] = React.useState<String | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
   const { handleSubmit, register } = useForm<SignupType>();
   const onSubmit = async (data: SignupType) => {
     const response = await signup(data);
