@@ -4,18 +4,18 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { isRunningAtom, timeAtom } from "./store/stopwatch";
 import AppRoutes from "./Pages/AppRoutes";
 function App() {
-  let timeInterval: NodeJS.Timeout | undefined = undefined;
+  const timeIntervalRef = React.useRef<NodeJS.Timeout | undefined>(undefined);
   const [time, setTime] = useRecoilState(timeAtom);
   const isRunning = useRecoilValue(isRunningAtom);
   React.useEffect(() => {
     if (isRunning) {
-      timeInterval = setInterval(
+      timeIntervalRef.current = setInterval(
         () => setTime((prevTime) => prevTime + 1),
         1000,
       );
     }
-    return () => clearInterval(timeInterval);
-  }, [isRunning]);
+    return () => clearInterval(timeIntervalRef.current);
+  }, [isRunning, setTime]);
   React.useEffect(() => {
     if (time === 0) return;
     document.title = `Time running ${Math.floor(time / 3600)}:${Math.floor(
