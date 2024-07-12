@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { LoginType } from "../../Lib/authType";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../actions/authActions";
 const LoginLayout: React.FC = () => {
   const [error, setError] = React.useState<string | null>(null);
@@ -29,6 +29,7 @@ const LoginLayout: React.FC = () => {
             placeholder="Username"
             id="username"
             {...register("username")}
+            defaultValue={"testuser"}
             className="rounded-lg p-2 focus:outline-none"
           />
         </div>
@@ -41,6 +42,7 @@ const LoginLayout: React.FC = () => {
             placeholder="Password"
             id="password"
             {...register("password")}
+            defaultValue={"secret"}
             className="rounded-lg p-2 focus:outline-none"
           />
         </div>
@@ -49,6 +51,12 @@ const LoginLayout: React.FC = () => {
         </button>
         {error && <p className="text-center text-red-500">{error}</p>}
       </form>
+      <div className="text-center text-sm">
+        Don't have an account?{" "}
+        <Link to="/auth/signup" className="underline">
+          Signup
+        </Link>
+      </div>
     </div>
   );
 };

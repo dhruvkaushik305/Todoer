@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { SignupType } from "../../Lib/authType";
 import { signup } from "../../actions/authActions";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SignupLayout: React.FC = () => {
   const navigate = useNavigate();
   const [error, setError] = React.useState<string | null>(null);
@@ -64,6 +64,12 @@ const SignupLayout: React.FC = () => {
         </button>
         {error && <p className="text-center text-red-500">{error}</p>}
       </form>
+      <div className="text-center text-sm">
+        Already have an account?{" "}
+        <Link to="/auth/login" className="underline">
+          Login
+        </Link>
+      </div>
     </div>
   );
 };
